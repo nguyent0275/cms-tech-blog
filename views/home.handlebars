@@ -1,0 +1,11 @@
+{{#each posts as |post| }}
+<div class="post-container">
+    <article class="post">
+        <h4 class="post-title">{{title}}</h4>
+        <div class="post-body">
+            <p class="post-content">{{content}}</p>
+            <p class="post-author">Posted by {{user.username}}</p>
+        </div>
+    </article>
+</div>
+{{/each}}
