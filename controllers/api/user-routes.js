@@ -20,6 +20,7 @@ router.get("/", async (req, res) => {
 // create a user
 router.post("/", async (req, res) => {
   try {
+    const newUser = req.body
     // checking for empty fields and returning appropriate message corresponding to the missing field
     if (!newUser.email) {
       res.status(400).json({
@@ -47,18 +48,19 @@ router.post("/", async (req, res) => {
       });
     }
   } catch (err) {
-    const errors = err.errros.map((x) => x.path);
+    res.status(500).json(err.toString())
+  //   const errors = err.errors.map((x) => x.path);
 
-    // serves the proper error depending on the situation
-    if (errors.indexOf("username") !== -1) {
-      res.status(400).json({ message: "This username has been taken" });
-    } else if (errors.indexOf("email") !== -1) {
-      res.status(400).json({ message: "Email is unavailable to use" });
-    } else if (errors.indexOf("password") !== -1) {
-      res
-        .status(400)
-        .json({ message: "This password does not meet the requirements" });
-    }
+  //   // serves the proper error depending on the situation
+  //   if (errors.indexOf("username") !== -1) {
+  //     res.status(400).json({ message: "This username has been taken" });
+  //   } else if (errors.indexOf("email") !== -1) {
+  //     res.status(400).json({ message: "Email is unavailable to use" });
+  //   } else if (errors.indexOf("password") !== -1) {
+  //     res
+  //       .status(400)
+  //       .json({ message: "This password does not meet the requirements" });
+  //   }
   }
 });
 
