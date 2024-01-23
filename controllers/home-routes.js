@@ -47,12 +47,19 @@ router.get("/login", async (req, res) => {
 });
 
 // gets the dashboard page
-router.get("/dashboard", withAuth, async (req, res) => {
+router.get("/dashboard", async (req, res) => {
   try {
-    res.render("dashboard", {
-      loggedIn: req.session.logged_in,
-      userName: req.session.username,
-    });
+    if(!req.session.logged_in){
+      res.render('login', {
+        loggedIn: req.session.logged_in,
+        userName: req.session.user_name,
+      })
+    } else {
+      res.render("dashboard", {
+        loggedIn: req.session.logged_in,
+        userName: req.session.user_name,
+      });
+    }
   } catch (err) {
     res.status(500).json(err.toString());
   }
